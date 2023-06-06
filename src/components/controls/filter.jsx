@@ -3,7 +3,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { TextField } from "@mui/material";
 
 export default function SelectFilter(props) {
   const [age, setAge] = React.useState("");
