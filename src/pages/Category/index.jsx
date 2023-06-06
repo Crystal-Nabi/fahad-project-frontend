@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -466,7 +466,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, rowCount, onRequestSort } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -501,7 +501,7 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
+  // numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
@@ -513,14 +513,14 @@ export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
-  const [selected, setSelected] = React.useState([]);
+  // const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(30);
-  const [filterFn, setFilterFn] = useState({
-    fn: (records) => {
-      return records;
-    },
-  });
+  // const [filterFn, setFilterFn] = useState({
+  //   fn: (records) => {
+  //     return records;
+  //   },
+  // });
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -538,19 +538,19 @@ export default function EnhancedTable() {
   };
 
   const handleSearch = (e) => {
-    let target = e.target;
-    setFilterFn({
-      fn: (records) => {
-        if (target.value == "") return records;
-        else
-          return records.filter((x) =>
-            x.fullName.toLowerCase().includes(target.value)
-          );
-      },
-    });
+    // let target = e.target;
+    // setFilterFn({
+    //   fn: (records) => {
+    //     if (target.value == "") return records;
+    //     else
+    //       return records.filter((x) =>
+    //         x.fullName.toLowerCase().includes(target.value)
+    //       );
+    //   },
+    // });
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  // const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -594,7 +594,7 @@ export default function EnhancedTable() {
       <TableContainer>
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
           <EnhancedTableHead
-            numSelected={selected.length}
+            // numSelected={selected.length}
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
@@ -602,12 +602,12 @@ export default function EnhancedTable() {
           />
           <TableBody>
             {visibleRows.map((row, index) => {
-              const isItemSelected = isSelected(row.name);
-              const labelId = `enhanced-table-checkbox-${index}`;
+              // const isItemSelected = isSelected(row.name);
+              // const labelId = `enhanced-table-checkbox-${index}`;
 
               return (
                 <TableRow
-                  aria-checked={isItemSelected}
+                  // aria-checked={isItemSelected}
                   tabIndex={-1}
                   key={row.name}
                   selected={index % 2 === 0 ? true : false}
