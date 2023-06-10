@@ -24,7 +24,7 @@ export default function SelectFilter(props) {
           <em>None</em>
         </MenuItem>
         {props.items.map((item, index) => (
-          <MenuItem value={item} index={index}>
+          <MenuItem value={item} key={index}>
             <em>{item}</em>
           </MenuItem>
         ))}

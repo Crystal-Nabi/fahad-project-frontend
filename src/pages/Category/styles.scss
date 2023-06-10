@@ -8,21 +8,27 @@ tr {
 
 .d-flex {
   display: flex !important;
-  justify-content: center !important;
+  justify-content: space-between !important;
   align-items: center !important;
 }
 
 td,
-th {
-  border: 1px solid rgba(224, 224, 224, 1);
-  height: 40px !important;
+th,
+table {
+  border: 0.5px solid rgba(224, 224, 224, 1);
+  border-collapse: separate !important;
+}
+
+.css-m596zz-MuiTableCell-root {
+  background-color: #4166e1 !important;
+  padding: 0;
 }
 
 .MuiTableHead-root {
   background-color: $headColor;
 
   th {
-    padding: 16px;
+    padding: 0px 0px 0px 3px;
   }
 
   span {
@@ -50,14 +56,29 @@ th {
   font-weight: 700 !important;
 }
 
-// .MuiTableRow-hover {
-//   background-color: #6f707814 !important;
-// }
 .Mui-selected {
   background-color: #6f707814 !important;
 }
 
-
 .css-1ex1afd-MuiTableCell-root {
   padding: 0px 16px !important;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+.btn_group {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.css-19j2ec4 {
+  padding: 6px 10px !important;
 }

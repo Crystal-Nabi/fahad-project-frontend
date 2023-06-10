@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import Category from "./pages/Category";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
@@ -37,8 +38,10 @@ const theme = createTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Category />
-      <CssBaseline />
+      <React.StrictMode>
+        <Category />
+        <CssBaseline />
+      </React.StrictMode>
     </ThemeProvider>
   );
 };
