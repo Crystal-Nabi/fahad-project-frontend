@@ -134,6 +134,7 @@ export default function EnhancedTable() {
   const [rows, setRows] = React.useState([]);
   const [loading, setLoading] = React.useState("none");
   const [heads, setHeads] = React.useState([]);
+  const [search, setSearch] = React.useState("");
 
   React.useEffect(() => {
     setLoading("flex");
@@ -183,20 +184,24 @@ export default function EnhancedTable() {
   };
 
   const handleExport = () => {
+    setLoading("flex");
     axios
       .get(`${SEVER_URL}/files/download`, {
         responseType: "blob",
       })
       .then((response) => {
-        const fileName = response.headers["content-disposition"].split("=")[1];
         saveAs(
           new Blob([response.data], { type: response.data.type }),
-          fileName
+          "catagory.xlsx"
         );
       });
+    setLoading("none");
   };
 
-  const handleSearch = (e) => {};
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -230,6 +235,7 @@ export default function EnhancedTable() {
             <Input
               label="Search"
               className={classes.searchInput}
+              value={search}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -237,6 +243,8 @@ export default function EnhancedTable() {
                   </InputAdornment>
                 ),
               }}
+              search={search}
+              setSearch={setSearch}
               onChange={handleSearch}
             />
           </Toolbar>
