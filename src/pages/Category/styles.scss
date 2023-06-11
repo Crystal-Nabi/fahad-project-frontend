@@ -19,17 +19,14 @@ table {
   border-collapse: separate !important;
 }
 
-.css-m596zz-MuiTableCell-root {
-  background-color: #4166e1 !important;
-  padding: 0;
-}
+// .css-m596zz-MuiTableCell-root {
+//   background-color: #4166e1 !important;
+//   padding: 0;
+// }
 
-.MuiTableHead-root {
-  background-color: $headColor;
-
-  th {
-    padding: 0px 0px 0px 3px;
-  }
+.MuiTableHead-root th {
+  background-color: $headColor !important;
+  padding: 0px 0px 0px 3px;
 
   span {
     color: white;

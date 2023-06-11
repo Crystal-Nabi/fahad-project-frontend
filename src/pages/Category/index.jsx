@@ -27,7 +27,10 @@ import Loading from "../../components/controls/loading";
 // import Dialog from "../../components/controls/dialog";
 import "./styles.scss";
 
-const SEVER_URL = "http://localhost:8080";
+const SEVER_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080"
+    : "http://localhost:80";
 const useStyles = makeStyles((theme) => ({
   pageContent: {
     margin: theme.spacing(5),
@@ -135,11 +138,13 @@ export default function EnhancedTable() {
   const [loading, setLoading] = React.useState("none");
   const [heads, setHeads] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  const [tempRows, setTempRows] = React.useState([]);
 
   React.useEffect(() => {
     setLoading("flex");
     axios.get(`${SEVER_URL}/catagory`).then((res) => {
       setRows(res.data);
+      setTempRows(res.data);
       setLoading("none");
     });
   }, []);
@@ -152,7 +157,20 @@ export default function EnhancedTable() {
     setHeads(rows.length ? Object.keys(rows[0]) : []);
   }, [rows]);
 
-  React.useEffect(() => {}, [search]);
+  React.useEffect(() => {
+    search !== ""
+      ? setRows(
+          tempRows.filter(
+            (catagory, index) =>
+              catagory["Site"].includes(search) ||
+              catagory["DA"] === +search ||
+              catagory["Category"].includes(search) ||
+              catagory["Total Traffic"] === +search ||
+              catagory["Price"] === +search
+          )
+        )
+      : setRows(tempRows);
+  }, [search, tempRows]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -267,7 +285,7 @@ export default function EnhancedTable() {
         {/* <Dialog open={open} setOpen={setOpen}></Dialog> */}
 
         {/* <Paper sx={{ width: "100%", overflow: "hidden" }}> */}
-        <TableContainer sx={{ maxHeight: 550 }}>
+        <TableContainer sx={{ maxHeight: 515 }}>
           <Table
             style={{ borderCollapse: "collapse" }}
             stickyHeader
@@ -281,7 +299,7 @@ export default function EnhancedTable() {
               inputRows={rows}
             />
             <TableBody>
-              {visibleRows.map((row, index) => (
+              {visibleRows?.map((row, index) => (
                 <TableRow
                   tabIndex={-1}
                   key={index}
@@ -289,7 +307,7 @@ export default function EnhancedTable() {
                   sx={{ cursor: "pointer" }}
                   hover={false}
                 >
-                  {heads.map((item, index) =>
+                  {heads?.map((item, index) =>
                     item === "DA" ? (
                       <TableCell key={index}>
                         <CircularProgress
@@ -332,16 +350,20 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         {/* </Paper> */}
-        <TablePagination
-          rowsPerPageOptions={[30, 40, 50]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          ActionsComponent={TablePaginationActions}
-        />
+        {rows.length ? (
+          <TablePagination
+            rowsPerPageOptions={[30, 40, 50]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            ActionsComponent={TablePaginationActions}
+          />
+        ) : (
+          ""
+        )}
       </Box>
     </Box>
   );
