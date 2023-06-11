@@ -152,6 +152,8 @@ export default function EnhancedTable() {
     setHeads(rows.length ? Object.keys(rows[0]) : []);
   }, [rows]);
 
+  React.useEffect(() => {}, [search]);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -198,11 +200,6 @@ export default function EnhancedTable() {
     setLoading("none");
   };
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-    console.log(search);
-  };
-
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -214,22 +211,22 @@ export default function EnhancedTable() {
       ),
     [order, orderBy, page, rowsPerPage, rows]
   );
-  const searchNiche = ["erre", "dfwe", "eeee"];
-  const searchLinkType = ["testlink1", "testlink2", "testlink3"];
-  const searchLanguage = ["Eng", "spa", "turki"];
-  const searchSideBar = ["test1", "test2", "test3"];
-  const searchSports = ["erre", "dfwe", "eeee"];
-  const searchPharm = ["errewwwww", "dfwewwwwwwwwww", "eeeewww"];
+  const filterNiche = ["erre", "dfwe", "eeee"];
+  const filterLinkType = ["testlink1", "testlink2", "testlink3"];
+  const filterLanguage = ["Eng", "spa", "turki"];
+  const filterSideBar = ["test1", "test2", "test3"];
+  const filterSports = ["erre", "dfwe", "eeee"];
+  const filterPharm = ["errewwwww", "dfwewwwwwwwwww", "eeeewww"];
   return (
     <Box>
       <Loading loading={loading} setLoading={setLoading}></Loading>
       <Box sx={{ width: "100%", padding: "20px" }}>
-        <SelectFilter text="Niche" items={searchNiche}></SelectFilter>
-        <SelectFilter text="Link Type" items={searchLinkType}></SelectFilter>
-        <SelectFilter text="Language" items={searchLanguage}></SelectFilter>
-        <SelectFilter text="Sidebar" items={searchSideBar}></SelectFilter>
-        <SelectFilter text="Sports" items={searchSports}></SelectFilter>
-        <SelectFilter text="Pharmacy" items={searchPharm}></SelectFilter>
+        <SelectFilter text="Niche" items={filterNiche}></SelectFilter>
+        <SelectFilter text="Link Type" items={filterLinkType}></SelectFilter>
+        <SelectFilter text="Language" items={filterLanguage}></SelectFilter>
+        <SelectFilter text="Sidebar" items={filterSideBar}></SelectFilter>
+        <SelectFilter text="Sports" items={filterSports}></SelectFilter>
+        <SelectFilter text="Pharmacy" items={filterPharm}></SelectFilter>
         <Box className="d-flex">
           <Toolbar>
             <Input
@@ -245,7 +242,6 @@ export default function EnhancedTable() {
               }}
               search={search}
               setSearch={setSearch}
-              onChange={handleSearch}
             />
           </Toolbar>
           <Box className="btn_group">

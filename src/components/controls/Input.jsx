@@ -4,7 +4,10 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function CustomizedInputBase() {
+export default function CustomizedInputBase(props) {
+  const handleSearch = (e) => {
+    props.setSearch(e.target.value);
+  };
   return (
     <Paper
       component="form"
@@ -14,6 +17,8 @@ export default function CustomizedInputBase() {
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search"
         inputProps={{ "aria-label": "Search" }}
+        value={props.search}
+        onChange={handleSearch}
       />
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
         <SearchIcon />
